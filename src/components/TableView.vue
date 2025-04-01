@@ -111,7 +111,7 @@ export default {
   },
   data() {
     return {
-      productData: this.productList,
+      productData: [],
       showModal: false,
       confirmMessage: "",
       selectedProduct: null,
@@ -216,6 +216,16 @@ export default {
       link.download = "products.csv";
       link.click();
     },
+  },
+  watch: {
+    productList: {
+      handler(newVal) {
+        if(newVal) {
+          this.productData = newVal;
+        }
+      },
+      immediate: true
+    }
   },
 };
 </script>

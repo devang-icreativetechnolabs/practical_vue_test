@@ -31,7 +31,7 @@ export default {
       return reversData;
     },
   },
-  async created() {
+  async mounted() {
     if (
       localStorage.getItem("products") &&
       JSON.parse(localStorage.getItem("products")).length > 0
