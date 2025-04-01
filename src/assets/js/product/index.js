@@ -1,10 +1,4 @@
-<template>
-  <div class="container">
-    <TableView :productList="productList" :categories="categories"> </TableView>
-  </div>
-</template>
-<script>
-import TableView from "@/components/TableView.vue";
+import TableView from "@/components/product/TableView.vue";
 export default {
   name: "Home",
   components: {
@@ -19,9 +13,14 @@ export default {
   },
   methods: {
     async getCategories() {
-      const res = await fetch(`${this.url}/categories`);
-      const data = await res.json();
-      return data;
+      if (localStorage.getItem("categories")) {
+        return JSON.parse(localStorage.getItem("categories"));
+      } else {
+        const res = await fetch(`${this.url}/categories`);
+        const data = await res.json();
+        localStorage.setItem("categories", JSON.stringify(data));
+        return data;
+      }
     },
     async getProducts() {
       const res = await fetch("https://fakestoreapi.com/products");
@@ -43,4 +42,3 @@ export default {
     this.categories = await this.getCategories();
   },
 };
-</script>
